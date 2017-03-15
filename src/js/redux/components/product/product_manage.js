@@ -28,7 +28,13 @@ class FilterHeader extends React.Component{
 class TopHeader extends React.Component{
   render(){
     return (
-      <div className='clearfix top-header'>
+      <div className='top-header'>
+        <div class="bread-guide">
+          <Breadcrumb style={{ margin: '12px 0' }}>
+            <Breadcrumb.Item>产品管理</Breadcrumb.Item>
+            <Breadcrumb.Item>产品列表</Breadcrumb.Item>
+          </Breadcrumb>
+        </div>
       </div>
       )
   }
@@ -114,15 +120,9 @@ export default class ProductManage extends React.Component{
     }];
     return(
       <div>
-      <Breadcrumb style={{ margin: '12px 0' }}>
-        <Breadcrumb.Item>产品管理</Breadcrumb.Item>
-        <Breadcrumb.Item>产品列表</Breadcrumb.Item>
-      </Breadcrumb>
-      <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
         <TopHeader />
         <FilterHeader />
         <Table columns={columns} dataSource={list} />
-      </Content>
       </div>
       )
   }

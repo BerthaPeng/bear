@@ -4,7 +4,7 @@ html, body{
 #mainContainer{
   overflow: auto;
   height: 100%;
-  background-color: #f6f6f6;
+  background-color: #ececec;
 }
 
 #app-container{
@@ -44,9 +44,22 @@ html, body{
 }
 
 .top-header{
-  border-bottom: 1px solid #e9e9e9;
+  height: 50px;
+  top: 50px;
+  position: absolute;
+  left: 50px;
 }
-
+.top-header-btns{
+  height: 50px;
+  top: 50px;
+  position: absolute;
+  right: 50px;
+}
+.bread-guide{
+  position: relative;
+  margin-top: 10px;
+  display: inline-block;
+}
 .login-container {
     position: fixed;
     top: 0;
@@ -124,7 +137,7 @@ html, body{
 }
 
 /*Layout*/
-#components-layout-demo-custom-trigger .trigger {
+/*#components-layout-demo-custom-trigger .trigger {
   font-size: 18px;
   line-height: 64px;
   padding: 0 16px;
@@ -149,7 +162,38 @@ html, body{
 
 #components-layout-demo-custom-trigger .ant-layout-sider-collapsed .nav-text {
   display: none;
+}*/
+
+
+/*下拉表格*/
+.components-table-demo-nested .ant-table-expanded-row > td:last-child {
+  padding: 0 48px 0 8px;
 }
+
+.components-table-demo-nested .ant-table-expanded-row > td:last-child .ant-table-thead th {
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.components-table-demo-nested .ant-table-expanded-row > td:last-child .ant-table-thead th:first-child {
+  padding-left: 0;
+}
+
+.components-table-demo-nested .ant-table-expanded-row > td:last-child .ant-table-row td:first-child {
+  padding-left: 0;
+}
+
+.components-table-demo-nested .ant-table-expanded-row .ant-table-row:last-child td {
+  border: none;
+}
+
+.components-table-demo-nested .ant-table-expanded-row .ant-table-thead > tr > th {
+  background: none;
+}
+
+.components-table-demo-nested .table-operation a:not(:last-child) {
+  margin-right: 24px;
+}
+/*下拉表格*/
 
 
 

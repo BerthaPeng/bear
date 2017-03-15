@@ -9,7 +9,7 @@ import { Layout, Breadcrumb } from 'antd';
 const { Header, Content, Sider } = Layout;
 
 export const Entry = props => {
- return (localStorage.hasLogin ? (<Main>{props.children}</Main>) : <Login />  )
+ return (localStorage.length && JSON.parse(localStorage.login) ? (<Main>{props.children}</Main>) : <Login />  )
 } 
 
 
@@ -50,7 +50,7 @@ class Main extends React.Component{
           onCollapse={this.toggle.bind(this)}
          />
       <Layout>
-        <Sider
+        {/*<Sider
           width={200}
           collapsible
           collapsed={this.state.collapsed}
@@ -73,7 +73,18 @@ class Main extends React.Component{
               </Content>
             </div>
           }
-        </Layout>
+        </Layout>*/}
+
+        <Content style={{padding: '0 50px', marginTop: 50}}>
+          <Layout style={{padding:'24px 0', background: '#fff' }}>
+            <Sider width={200} style={{ background: '#fff' }}>
+              <Nav />
+            </Sider>
+            <Content style={{padding:'0 24px', minHeight: 280 }}>
+              {this.props.children}
+            </Content>
+          </Layout>
+        </Content>
       </Layout>
         
         

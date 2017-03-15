@@ -3,6 +3,9 @@ import { Row, Col, Menu, Icon, Button, Input, Dropdown} from 'antd';
 import { Link} from 'react-router'
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
+import { createHistory } from 'history';
+
+const history = createHistory();
 
 import * as Utils from 'utils/index';
 
@@ -25,7 +28,7 @@ export default class PCHeader extends React.Component{
   render(){
     /*let {getFieldProps } = this.props.form;*/
     const userShowMenu = (
-      <Menu>
+      <Menu onSelect={this.clickHeaderMenu.bind(this)} >
         <Menu.Item key="0">
           <a href="http://www.alipay.com/">个人</a>
         </Menu.Item>
@@ -33,12 +36,12 @@ export default class PCHeader extends React.Component{
           <a href="http://www.taobao.com/">重置密码</a>
         </Menu.Item>
         <Menu.Divider />
-        <Menu.Item key="3">退出</Menu.Item>
+        <Menu.Item key="logout" >退出</Menu.Item>
       </Menu>
     );
     return(
       <header style={{backgroundColor: '#fff'}}>
-        <Row class="top-header">
+        <Row>
           <Col span={4}>
             <a href="/" class="logo" style={{minWidth:200}}>
               <img src="./src/images/logo.png" alt="logo"/>
@@ -47,16 +50,7 @@ export default class PCHeader extends React.Component{
             </a>
             
           </Col>
-          <Col span={2}>
-            <div style={{ paddingTop:15}}>
-              <Icon
-                className="trigger"
-                type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
-                onClick={this.onCollapse.bind(this)}
-              />
-            </div>
-          </Col>
-          <Col span={10}>
+          <Col span={12}>
           
             {/*<Menu mode="horizontal" selectedKeys={[this.state.current]}>
               <SubMenu key="sub1" title={<span><Icon type="appstore" /><span>产品管理</span></span>}>
@@ -80,7 +74,7 @@ export default class PCHeader extends React.Component{
             <div className="header-middle">
               <Dropdown overlay={userShowMenu}  trigger={['click']}>
                   <a className="ant-dropdown-link" href="#">
-                    {this.state.userNickName} <Icon type="down" />
+                    {JSON.parse(localStorage.user).userNickname} <Icon type="down" />
                   </a>
               </Dropdown>
             </div>
@@ -91,7 +85,14 @@ export default class PCHeader extends React.Component{
       )
   }
   onCollapse(){
-    debugger
     this.props.onCollapse();
+  }
+  clickHeaderMenu({key} ){
+    if(key=="logout"){
+      localStorage.clear(); 
+      location.reload();
+      /*history.push({pathname: '/'})*/
+    }
+
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
+import { createHistory } from 'history';
 /*import PCIndex from './components/pc_index';
 import ProductManage from './components/product/product_manage';*/
 import MobileIndex from './components/mobile_index';
@@ -30,6 +31,13 @@ const getComponents = (routePath, accessControl) => (nexState, replace, callback
         components.ProductDetailPannel = require('./components/product/mobile_product').default;
         callback();
       });
+      break;
+    case 'am':
+      require.ensure([], require => {
+        components.UserManagePannel = require('./components/authority/user_manage.js').default;
+        components.RoleManagePannel = require('./components/authority/role_manage.js').default;
+        callback();
+      })
       break;
     default:
       break;
@@ -74,11 +82,13 @@ const Root = () =>(
           <Router history={hashHistory}>
             <Route path="/" component={Entry}>
               <Route path="pm" onEnter={getComponents('pm')}>
-                <Route path="product">
-                  <IndexRoute getComponent={get('ProductPannel')} />
-                </Route>
-                </Route>
+                <Route path="product" getComponent={get('ProductPannel')} />
               </Route>
+              <Route path="am" onEnter={getComponents('am')}>
+                <Route path="user"  getComponent={get('UserManagePannel')} />
+                <Route path="role" getComponents={get('RoleManagePannel')} />
+              </Route>
+            </Route>
           </Router>
         </MediaQuery>
         <MediaQuery query='(max-device-width: 1224px)'>

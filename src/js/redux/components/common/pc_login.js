@@ -1,5 +1,8 @@
 import React from 'react';
 import {  Icon,  Button, Input} from 'antd';
+import { createHistory } from 'history';
+
+const history = createHistory();
 
 export default class Login extends React.Component{
   render(){
@@ -35,8 +38,12 @@ export default class Login extends React.Component{
       )
   }
   login(){
-    localStorage.username = 'admin';
-    localStorage.hasLogin = true;
-    location.reload();
+    var user = {
+      username : 'admin',
+      userNickname: '超级大BOSS',
+    }
+    localStorage.login = true;
+    localStorage.setItem('user', JSON.stringify(user));
+    location.reload()
   }
 }
