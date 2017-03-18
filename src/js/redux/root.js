@@ -17,7 +17,6 @@ let components = {};
 
 const getComponents = (routePath, accessControl) => (nexState, replace, callback) => {
   if(accessControl && !accessControl(nexState, replace)){
-    debugger
     return;
   }
 
@@ -29,6 +28,7 @@ const getComponents = (routePath, accessControl) => (nexState, replace, callback
         }*/
         components.ProductPannel = require('./components/product/product_manage.js').default;
         components.ProductDetailPannel = require('./components/product/mobile_product').default;
+        components.ProductFormPannel = require('./components/product/product_form').default;
         callback();
       });
       break;
@@ -36,6 +36,7 @@ const getComponents = (routePath, accessControl) => (nexState, replace, callback
       require.ensure([], require => {
         components.UserManagePannel = require('./components/authority/user_manage.js').default;
         components.RoleManagePannel = require('./components/authority/role_manage.js').default;
+        components.SysAuthManagePannel = require('./components/authority/system_auth.js').default;
         callback();
       })
       break;
@@ -82,11 +83,15 @@ const Root = () =>(
           <Router history={hashHistory}>
             <Route path="/" component={Entry}>
               <Route path="pm" onEnter={getComponents('pm')}>
-                <Route path="product" getComponent={get('ProductPannel')} />
+                <Route path="product"  >
+                  <IndexRoute getComponent={get('ProductPannel')}/>
+                  <Route path="add" getComponent={get('ProductFormPannel')} />
+                </Route>
               </Route>
               <Route path="am" onEnter={getComponents('am')}>
                 <Route path="user"  getComponent={get('UserManagePannel')} />
                 <Route path="role" getComponents={get('RoleManagePannel')} />
+                <Route path='sysauth' getComponents={get('SysAuthManagePannel')} />
               </Route>
             </Route>
           </Router>

@@ -23,6 +23,6 @@
   margin-right:5px;
 }
 
-.clearfix{
+.clearfix:after{
   clear: both;
 }

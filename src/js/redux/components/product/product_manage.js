@@ -1,9 +1,10 @@
 import React from 'react';
+import {Link} from 'react-router';
 import { Input , Select, Button, Table, Icon, Layout, Breadcrumb} from 'antd';
+import Nav from '../common/pc_nav';
 import * as config from  'config/app.config.js';
 
-
-const { Content } = Layout;
+const { Content, Sider } = Layout;
 const Search = Input.Search
 
 
@@ -18,22 +19,26 @@ class FilterHeader extends React.Component{
           区域：
           <Select style={{width: 100}} class="space-right" />
           <Button type="primary" icon="search">Search</Button>
-
         </div>
       </div>
       )
   }
+
+
 } 
 
 class TopHeader extends React.Component{
   render(){
     return (
-      <div className='top-header'>
-        <div class="bread-guide">
-          <Breadcrumb style={{ margin: '12px 0' }}>
-            <Breadcrumb.Item>产品管理</Breadcrumb.Item>
-            <Breadcrumb.Item>产品列表</Breadcrumb.Item>
-          </Breadcrumb>
+      <div>
+        <Breadcrumb style={{ margin: '12px 0' }}>
+          <Breadcrumb.Item>产品管理</Breadcrumb.Item>
+          <Breadcrumb.Item>产品管理</Breadcrumb.Item>
+        </Breadcrumb>
+        <div className="top-header-btns">
+          <div className="bread-guide">
+            <Link to="/pm/product/add"><Button type="primary">添加产品</Button></Link>
+          </div>
         </div>
       </div>
       )
@@ -121,8 +126,15 @@ export default class ProductManage extends React.Component{
     return(
       <div>
         <TopHeader />
-        <FilterHeader />
-        <Table columns={columns} dataSource={list} />
+        <Layout style={{padding:'24px 0', background: '#fff' }}>
+          <Sider width={200} style={{ background: '#fff' }}>
+            <Nav />
+          </Sider>
+          <Content style={{padding:'0 24px', minHeight: 280 }}>
+            <FilterHeader />
+            <Table columns={columns} dataSource={list} />
+          </Content>
+        </Layout>
       </div>
       )
   }

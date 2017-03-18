@@ -75,15 +75,33 @@ class Main extends React.Component{
           }
         </Layout>*/}
 
-        <Content style={{padding: '0 50px', marginTop: 50}}>
-          <Layout style={{padding:'24px 0', background: '#fff' }}>
+        <Content style={{padding: '0 50px'}}>
+          
+          {/*<Layout style={{padding:'24px 0', background: '#fff' }}>
             <Sider width={200} style={{ background: '#fff' }}>
               <Nav />
             </Sider>
             <Content style={{padding:'0 24px', minHeight: 280 }}>
               {this.props.children}
             </Content>
-          </Layout>
+          </Layout>*/}
+          {
+            this.props.children
+            ?this.props.children
+            :
+            <div>
+              <Breadcrumb style={{ margin: '12px 0' }}>
+                <Breadcrumb.Item>首页</Breadcrumb.Item>
+              </Breadcrumb>
+              <Layout style={{padding:'24px 0', background: '#fff' }}>
+                <Sider width={200} style={{ background: '#fff' }}>
+                  <Nav />
+                </Sider>
+                <Content style={{padding:'0 24px', minHeight: 280 }}>
+                </Content>
+              </Layout>
+            </div>
+          }
         </Content>
       </Layout>
         

@@ -1,6 +1,9 @@
 import React from 'react';
-import { Input , Select, Button, Table, Icon, Breadcrumb, TreeSelect, Menu, Badge, Dropdown} from 'antd';
+import { Input , Select, Button, Layout, Table, Icon, Breadcrumb, TreeSelect, Menu, Badge, Dropdown} from 'antd';
 import * as config from  'config/app.config.js';
+import Nav from '../common/pc_nav';
+
+const { Content, Sider } = Layout;
 
 const Search = Input.Search
 
@@ -60,14 +63,10 @@ class TopHeader extends React.Component{
   render(){
     return (
       <div>
-        <div className='top-header'>
-          <div className='bread-guide'>
-            <Breadcrumb style={{ margin: '12px 0', display: 'inline-block' }}>
-              <Breadcrumb.Item>用户管理</Breadcrumb.Item>
-              <Breadcrumb.Item>角色管理</Breadcrumb.Item>
-            </Breadcrumb>
-          </div>
-        </div>
+          <Breadcrumb style={{ margin: '12px 0', display: 'inline-block' }}>
+            <Breadcrumb.Item>用户管理</Breadcrumb.Item>
+            <Breadcrumb.Item>角色管理</Breadcrumb.Item>
+          </Breadcrumb>
       </div>
 
       )
@@ -140,8 +139,15 @@ export default class RoleManage extends React.Component{
     return(
       <div>      
         <TopHeader />
-        <FilterHeader />
-        <Table columns={columns} rowSelection={rowSelection} dataSource={data} />
+        <Layout style={{padding:'24px 0', background: '#fff' }}>
+          <Sider width={200} style={{ background: '#fff' }}>
+            <Nav />
+          </Sider>
+          <Content style={{padding:'0 24px', minHeight: 280 }}>
+            <FilterHeader />
+            <Table columns={columns} rowSelection={rowSelection} dataSource={data} />
+          </Content>
+        </Layout>
       </div>
       )
   }
