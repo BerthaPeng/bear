@@ -26,3 +26,11 @@
 .clearfix:after{
   clear: both;
 }
+
+.form-inline{
+  /*height: 40px;*/
+}
+
+.form-group{
+  margin-bottom: 8px
+}

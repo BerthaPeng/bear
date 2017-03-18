@@ -25,9 +25,6 @@ export default class Sider extends Component {
       >
         <SubMenu key="sub1" title={<span><Icon type="appstore" /><span className="nav-text">产品管理</span></span>}>
           <Menu.Item key="1"><Link to="/pm/product">产品管理</Link></Menu.Item>
-          <Menu.Item key="2">Option 2</Menu.Item>
-          <Menu.Item key="3">Option 3</Menu.Item>
-          <Menu.Item key="4">Option 4</Menu.Item>
         </SubMenu>
         <SubMenu key="sub3" title={<span><Icon type="appstore" /><span className="nav-text">生产管理</span></span>}>
           <Menu.Item key="9"><Link to="/mm/process">生产环节管理</Link></Menu.Item>

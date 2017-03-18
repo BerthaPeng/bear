@@ -46,31 +46,31 @@ export default class ProductForm extends React.Component{
           <Content style={{padding:'0 0px', minHeight: 280 }}>
             
             <div class="form-panel">
-              <div class="panel">
+              <div class="panel-form">
                 <header class="panel-heading"><Icon type="bars" /><span> 基本信息</span></header>
-                <div class="form-group">
-                  <div class="form-inline">
+                <div class="panel-body">
+                  <div class="form-group form-inline">
                     <label>产品名称：</label>
                     <Input type="text" style={{width: 200}} />
                   </div>
-                  <div class="form-inline">
+                  <div class="form-group form-inline">
                     <label>{'　　产地：'}</label>
                     <Select style={{width: 200}} />
                   </div>
-                  <div class="form-inline">
+                  <div class="form-group form-inline">
                     <label>{'　　类别：'}</label>
                     <Select style={{width: 200}} />
                   </div>
-                  <div class="form-inline">
+                  <div class="form-group form-inline">
                     <label>{'　供应商：'}</label>
                     <Input type="text" style={{width: 200}} />
                   </div>
                 </div>
               </div>
-              <div class="panel">
+              <div class="panel-form">
                 <header class="panel-heading"><Icon type="bars" /><span> 产品展示图</span></header>
                 <div class="clearfix" style={{marginLeft: 10, paddingBottom: 20}}>
-                  <div class="form-group">
+                  <div class="panel-body">
                     <div style={{float: 'left'}}>
                       <img src="http://placehold.it/332?text=主图"/>
                       <div style={{marginTop: 4, marginRight: '-4px'}}>
@@ -106,7 +106,7 @@ export default class ProductForm extends React.Component{
                   </div>
                 </div>
               </div>
-              <div class="panel">
+              <div class="panel-form">
                 <header class="panel-heading"><Icon type="bars" /><span> 生产环节配置</span></header>
                 <div class="form-group">
                   <div style={{height: 50}}>
@@ -124,11 +124,11 @@ export default class ProductForm extends React.Component{
           onCancel={this.handleProcedureModalCancel.bind(this)}
           onOk = {this.handleProcedureModalOK.bind(this)}
         >
-          <div class="form-inline">
+          <div class="form-group form-inline">
             <label>{'　　名称：'}</label>
             <Input id="procedure_name" style={{width: 200}}/>
           </div>
-          <div class="form-inline">
+          <div class="form-group form-inline">
             <label>分配部门：</label>
             <Select style={{width: 200}} onChange={this.onSelectOrgChange.bind(this)}>
               <Option value="部门一">部门一</Option>

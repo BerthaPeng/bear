@@ -40,6 +40,12 @@ const getComponents = (routePath, accessControl) => (nexState, replace, callback
         callback();
       })
       break;
+    case 'mm':
+      require.ensure([], require => {
+        components.ManufactureManagePannel = require('./components/manufacture/manu_manage.js').default;
+        callback();
+      })
+      break;
     default:
       break;
   }
@@ -92,6 +98,9 @@ const Root = () =>(
                 <Route path="user"  getComponent={get('UserManagePannel')} />
                 <Route path="role" getComponents={get('RoleManagePannel')} />
                 <Route path='sysauth' getComponents={get('SysAuthManagePannel')} />
+              </Route>
+              <Route path="mm" onEnter={getComponents('mm')}>
+                <Route path="process" getComponents={get('ManufactureManagePannel')} />
               </Route>
             </Route>
           </Router>
