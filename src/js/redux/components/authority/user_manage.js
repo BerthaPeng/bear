@@ -15,7 +15,7 @@ class FilterHeader extends React.Component{
       <div className="panel search">
         <div className="panel-body form-inline">
           <Search placeholder="用户名搜索"  style={{maxWidth: 150, marginRight: 5}}/>
-          <Button type="primary" icon="search">Search</Button>
+          <Button type="primary" icon="search">搜索</Button>
 
         </div>
       </div>

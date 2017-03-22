@@ -36,19 +36,8 @@ class FilterHeader extends React.Component{
     return (
       <div className="panel search">
         <div className="panel-body form-inline">
-          <TreeSelect
-                  style={{ width: 300 }}
-                  value={this.state.role_id}
-                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                  treeData={treeData}
-                  placeholder="请选择角色"
-                  treeDefaultExpandAll
-                  onChange={this.onChange.bind(this)}
-                  class='space-right'
-                />
           <Select style={{width: 100}} class="space-right" />
-          <Button type="primary" class="space-right" icon="edit">编辑</Button>
-          <Button type="primary" icon="save">提交</Button>
+          <Button type="primary" icon="search">搜索</Button>
         </div>
       </div>
       )
@@ -62,14 +51,10 @@ class TopHeader extends React.Component{
   render(){
     return (
       <div>
-        <div className='top-header'>
-          <div className='bread-guide'>
             <Breadcrumb style={{ margin: '12px 0', display: 'inline-block' }}>
               <Breadcrumb.Item>权限管理</Breadcrumb.Item>
               <Breadcrumb.Item>系统权限管理</Breadcrumb.Item>
             </Breadcrumb>
-          </div>
-        </div>
       </div>
 
       )
@@ -94,7 +79,7 @@ function NestedTable() {
       { title: '模块名称', dataIndex: 'module_name', key: 'module_name' },
       { title: '动作描述', dataIndex: 'desc', key: 'desc' },
       { title: 'code', dataIndex: 'code', key: 'code' },
-      { title: 'Action', key: 'operation', render: () => (
+      { title: '管理操作', key: 'operation', render: () => (
         <span>
           <a href="#">编辑</a>
           <span className="ant-divider" />
@@ -126,7 +111,7 @@ function NestedTable() {
       { title: '模块名称', dataIndex: 'module_name', key: 'module_name' },
       { title: '动作描述', dataIndex: 'desc', key: 'desc' },
       { title: 'code', dataIndex: 'code', key: 'code' },
-      { title: 'Action', key: 'operation', render: () => (
+      { title: '管理操作', key: 'operation', render: () => (
         <span>
           <a href="#">编辑</a>
           <span className="ant-divider" />
