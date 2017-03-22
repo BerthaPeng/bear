@@ -37,6 +37,8 @@ const getComponents = (routePath, accessControl) => (nexState, replace, callback
         components.UserManagePannel = require('./components/authority/user_manage.js').default;
         components.RoleManagePannel = require('./components/authority/role_manage.js').default;
         components.SysAuthManagePannel = require('./components/authority/system_auth.js').default;
+        components.UserFormPannel = require('./components/authority/user_form.js').default;
+        components.DeptRolePannel = require('./components/authority/dept_role_manage.js').default;
         callback();
       })
       break;
@@ -95,9 +97,13 @@ const Root = () =>(
                 </Route>
               </Route>
               <Route path="am" onEnter={getComponents('am')}>
-                <Route path="user"  getComponent={get('UserManagePannel')} />
+                <Route path="user">
+                  <IndexRoute getComponent={get('UserManagePannel')} />
+                  <Route path="add" getComponent={get('UserFormPannel')} />
+                </Route>
                 <Route path="role" getComponents={get('RoleManagePannel')} />
                 <Route path='sysauth' getComponents={get('SysAuthManagePannel')} />
+                <Route path='deptrole' getComponents={get('DeptRolePannel')} />
               </Route>
               <Route path="mm" onEnter={getComponents('mm')}>
                 <Route path="process" getComponents={get('ManufactureManagePannel')} />

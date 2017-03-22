@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 import { Input , Select, Button, Table, Icon, Layout, Breadcrumb} from 'antd';
 import * as config from  'config/app.config.js';
 import Nav from '../common/pc_nav';
@@ -32,7 +33,7 @@ class TopHeader extends React.Component{
         </Breadcrumb>
         <div className="top-header-btns">
           <div className="bread-guide">
-            <Button type="primary">添加用户</Button>
+            <Link to="/am/user/add"><Button type="primary">添加用户</Button></Link>
           </div>
         </div>
       </div>

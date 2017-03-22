@@ -34,3 +34,15 @@
 .form-group{
   margin-bottom: 8px
 }
+
+.field{
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+}
+.field legend{
+  padding: 5px 10px;
+  font-size: 14px;
+  width: auto;
+  border: 0px;
+  margin-bottom: 5px;
+}

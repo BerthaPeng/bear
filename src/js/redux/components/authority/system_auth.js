@@ -1,8 +1,10 @@
 import React from 'react';
-import { Input , Select, Button, Table, Icon, Breadcrumb, TreeSelect, Menu, Badge, Dropdown} from 'antd';
+import { Input , Select, Button, Table, Icon, Breadcrumb, TreeSelect, Menu, Badge, Dropdown, Layout} from 'antd';
 import * as config from  'config/app.config.js';
+import Nav from '../common/pc_nav';
 
 const Search = Input.Search
+const { Content, Sider } = Layout;
 
 const treeData = [{
   label: '产品部门',
@@ -191,10 +193,17 @@ export default class RoleManage extends React.Component{
       }]
     } ];
     return(
-      <div>      
+      <div> 
         <TopHeader />
-        <FilterHeader />
-        <NestedTable />
+        <Layout style={{padding:'24px 0', background: '#fff' }}>
+          <Sider width={200} style={{ background: '#fff' }}>
+            <Nav />
+          </Sider>
+          <Content style={{padding:'0 24px', minHeight: 280 }}>
+            <FilterHeader />
+            <NestedTable />
+          </Content>
+        </Layout>     
       </div>
       )
   }
