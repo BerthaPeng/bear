@@ -21,4 +21,6 @@ var fetchOptions = function(type, event , params){
 export default {
   fetchOptions,
   requestUrl: 'http://119.23.132.97:8001/api',
+  trace_product: 'http://119.23.132.97:8001/api/trace_product',
+  product_info: 'http://119.23.132.97:8001/api/product',
 }

@@ -140,13 +140,12 @@ export default class ProductManage extends React.Component{
   }
   componentDidMount(){
         var options = config.default.fetchOptions('POST', 'GetProductList', {})
-        fetch(config.default.requestUrl, options)
+        fetch(config.default.product_info, options)
         .then(res => res.json())
         .then(json => {
           var data = json.data.map( m => {m.key=m.id; return m})
           this.setState({list: data})
         })
         .catch(ex => {console.warn("parsed err: " + ex)})
-
   }
 }

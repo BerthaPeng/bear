@@ -78,5 +78,17 @@ html, body{
   background-color: #fff;
 }
 
+.properties ul{
+  padding: 10px;
+}
+
+.properties li{
+  padding: 5px;
+}
+
+.properties li label{
+  font-weight: 700;
+}
+
 
 
