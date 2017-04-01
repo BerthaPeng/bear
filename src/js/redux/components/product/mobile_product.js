@@ -98,9 +98,16 @@ export default class MobileProduct extends React.Component{
           <div class="mobile-panel" style={{marginTop: 10}}>
             <div class="schedule">
               <span class="title">商品追溯</span><span style={{float: 'right'}}><em style={{color: '#2db7f5'}}>100%</em><span>正规渠道</span></span>
-              <Steps direction="vertical" size="small" current={5} style={{marginTop: 15}}>
-                {traceDom}
-              </Steps>
+              {
+                product_trace_list.length ?
+                <Steps direction="vertical" size="small" current={5} style={{marginTop: 15}}>
+                  {
+                    traceDom
+                  }
+                </Steps>
+                :
+                <p style={{marginTop: 40,textAlign: 'center'}}><Icon type="frown-o" /> 当前产品无溯源信息</p>
+              }
             </div>
           </div>
         {/*<MobileFooter />*/}
