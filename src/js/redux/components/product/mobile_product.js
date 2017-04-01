@@ -118,7 +118,7 @@ export default class MobileProduct extends React.Component{
     })
     .catch(ex => {console.warn("parsed err: " + ex)})
 
-    var detailOptions = config.default.fetchOptions('POST', 'getProduct', {pro_id:"0003"})
+    var detailOptions = config.default.fetchOptions('POST', 'getProduct', {pro_id:"103"})
     fetch(config.default.product_info, detailOptions)
       .then( res => res.json())
       .then( json => {
