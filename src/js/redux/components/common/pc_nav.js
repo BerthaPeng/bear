@@ -68,6 +68,7 @@ class Nav extends Component {
     );
   }
   componentDidMount(){
+    /*var current_path = location.pathname;*/
     var current_path = location.hash.replace('#', '');
     nav_config.forEach( firstLevelItem => {
       firstLevelItem.link.forEach( secondLevelItem => {

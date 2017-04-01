@@ -108,7 +108,8 @@ export default class MobileProduct extends React.Component{
       )
   }
   componentDidMount(){
-    var options = config.default.fetchOptions('POST', 'trace_product_source', {product_instance_id: '9182346171981646163'})
+    var { id } = this.props.params;
+    var options = config.default.fetchOptions('POST', 'trace_product_source', {product_instance_id: id})
     fetch(config.default.trace_product, options)
     .then(res => res.json())
     .then(json => {
@@ -117,7 +118,7 @@ export default class MobileProduct extends React.Component{
     })
     .catch(ex => {console.warn("parsed err: " + ex)})
 
-    var detailOptions = config.default.fetchOptions('POST', 'getProduct', {pro_id:"0001"})
+    var detailOptions = config.default.fetchOptions('POST', 'getProduct', {pro_id:"0003"})
     fetch(config.default.product_info, detailOptions)
       .then( res => res.json())
       .then( json => {
