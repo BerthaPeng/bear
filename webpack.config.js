@@ -42,6 +42,7 @@ module.exports = {
     alias: {
       'utils'            : path.join(__dirname, './src/js/redux/utils'),
       'config'            : path.join(__dirname, './src/js/redux/config'),
+      'history_instance'  : path.join(__dirname, './src/js/redux/history'),
     }
   },
   /*module: {

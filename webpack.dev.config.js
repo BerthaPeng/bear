@@ -13,6 +13,11 @@ const config = {
     filename: '[name].bundle.js'
   },
   devtool: 'source-map',
+  devServer: {
+    historyApiFallback: {
+      index: 'http://' + ip.address() + ':8001/' + 'index.html'
+    },
+  },
 /*  module: {
     loaders: [{
       test: /\.jsx?$/,

@@ -44,11 +44,9 @@ export default class PCHeader extends React.Component{
         <Row>
           <Col span={4}>
             <a href="/" class="logo" style={{minWidth:200}}>
-              <img src="./src/images/logo.png" alt="logo"/>
+              <img src="/src/images/logo.png" alt="logo"/>
               <span>Bear</span>
-             
             </a>
-            
           </Col>
           <Col span={12}>
           
@@ -78,7 +76,6 @@ export default class PCHeader extends React.Component{
                   </a>
               </Dropdown>
             </div>
-            
           </Col>
         </Row>
       </header>
@@ -89,7 +86,7 @@ export default class PCHeader extends React.Component{
   }
   clickHeaderMenu({key} ){
     if(key=="logout"){
-      localStorage.clear(); 
+      localStorage.clear();
       location.reload();
       /*history.push({pathname: '/'})*/
     }

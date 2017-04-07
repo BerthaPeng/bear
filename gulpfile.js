@@ -22,8 +22,8 @@ var webpack_dev_config    = require('./webpack.dev.config.js');
 var webpack_deploy_config = require('./webpack.deploy.config.js');
 
 var config = {
-  app_port: 8082,
-  webpack_port: 8001,
+  app_port: 8001,
+  webpack_port: 3000,
   node_port: 3001,
   root: '/',  //资源路径
   src: 'src/',
@@ -49,7 +49,7 @@ gulp.task('browser-sync', function() {
     //     }
     //   }
     // },
-    proxy: "localhost:" + config.webpack_port,
+    proxy: "localhost:" + config.node_port,
     port: config.app_port,
     ui: {
       port: config.app_port + 1
@@ -60,7 +60,7 @@ gulp.task('browser-sync', function() {
 });
 
 gulp.task('template:dev', function(){
-  var webpack_server = "http://" + config.IPv4 + ":" + config.webpack_port  +"/";
+  var webpack_server = "http://" + config.IPv4 + ":" + config.app_port  +"/";
   return gulp.src(s('index.html'))
     .pipe(template({
       'root': config.root,
@@ -93,12 +93,12 @@ gulp.task("webpack:react", function(callback) {
 
 //@1: 第一步操作
 gulp.task("webpack-dev-server", function(callback) {
-  var port = config.webpack_port;
+  var port = config.app_port;
   //去除hot-loader功能
   //http://«host»:«port»/webpack-dev-server/«path» 自动刷新模式 ： iframe模式 无需任何配置，只要前面的URL访问
   //webpack-dev-server/client?http://«path»:«port»/ 自动刷新模式：inline模式 访问的URL不会发生变化  资源服务器地址
   //webpack/hot/dev-server 代码热替换
-  webpack_dev_config.entry.index.unshift("webpack-dev-server/client?http://" + config.IPv4 + ":" +  config.webpack_port + "/", "webpack/hot/dev-server");
+  webpack_dev_config.entry.index.unshift("webpack-dev-server/client?http://" + config.IPv4 + ":" +  config.app_port + "/", "webpack/hot/dev-server");
   new WebpackDevServer(webpack(webpack_dev_config), {
     hot: false,
     stats: { colors: true },
@@ -109,7 +109,7 @@ gulp.task("webpack-dev-server", function(callback) {
 });
 
 //@2: 第二步操作
-gulp.task('default', [ 'template:dev' ], function () {
+gulp.task('default',  [ 'template:dev' ], function () {
   gulp.watch(s('*.html'), ['template:dev']);
 });
 

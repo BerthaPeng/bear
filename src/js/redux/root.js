@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory, IndexRoute } from 'react-router';
+import { Router, Route, IndexRoute } from 'react-router';
 import { createHistory } from 'history';
+import history from 'history_instance';
 /*import PCIndex from './components/pc_index';
 import ProductManage from './components/product/product_manage';*/
 import MobileIndex from './components/mobile_index';
@@ -88,7 +89,7 @@ const Root = () =>(
       //这里替换了之前的Index,变成了程序的入口
       <div>
         <MediaQuery query='(min-device-width: 1224px)'>
-          <Router history={hashHistory}>
+          <Router history={history}>
             <Route path="/" component={Entry}>
               <Route path="pm" onEnter={getComponents('pm')}>
                 <Route path="product"  >
@@ -112,7 +113,7 @@ const Root = () =>(
           </Router>
         </MediaQuery>
         <MediaQuery query='(max-device-width: 1224px)'>
-          <Router history={hashHistory}>
+          <Router history={history}>
             {/*<Route path="/" component={MobileEntry}>
               <Route path="pm" onEnter={getComponents('pm')}>
                 <Route path="product/:id" getComponent={get('ProductDetailPannel')} />
