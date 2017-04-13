@@ -45,6 +45,6 @@ export default {
   trace_product: 'http://119.23.132.97:8001/api/trace_product',
   product_info: 'http://119.23.132.97:8001/api/product',*/
   requestUrl: 'http://sr.keyel.net/api',
-  trace_product: 'http://sr.keyel.net/api/trace_product',
-  product_info: 'http://sr.keyel.net/api/product',
+  trace_product: 'http://goofyluo.oicp.net/api/trace_product',
+  product_info: 'http://goofyluo.oicp.net/api/product',
 }
