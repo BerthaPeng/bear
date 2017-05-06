@@ -10,6 +10,7 @@ import MobileProduct from './components/product/mobile_product';
 
 import {Entry} from './components/common/pc_body';
 import {MobileEntry} from './components/common/mobile_body';
+import Qrcode from './components/test/qrcode';
 /*import 'antd/dist/antd.css';*/
 
 import MediaQuery from 'react-responsive';
@@ -30,6 +31,7 @@ const getComponents = (routePath, accessControl) => (nexState, replace, callback
         components.ProductPannel = require('./components/product/product_manage.js').default;
         components.ProductDetailPannel = require('./components/product/mobile_product').default;
         components.ProductFormPannel = require('./components/product/product_form').default;
+        components.ProductMapPannel = require('./components/product/product_map_manage').default;
         callback();
       });
       break;
@@ -91,11 +93,13 @@ const Root = () =>(
         <MediaQuery query='(min-device-width: 1224px)'>
           <Router history={history}>
             <Route path="/" component={Entry}>
+              <IndexRoute component={Qrcode}/>
               <Route path="pm" onEnter={getComponents('pm')}>
                 <Route path="product"  >
                   <IndexRoute getComponent={get('ProductPannel')}/>
                   <Route path="add" getComponent={get('ProductFormPannel')} />
                 </Route>
+                <Route path="productmap" getComponents={get('ProductMapPannel')} />
               </Route>
               <Route path="am" onEnter={getComponents('am')}>
                 <Route path="user">

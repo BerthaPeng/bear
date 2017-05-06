@@ -5,6 +5,10 @@ export default [{
     "key": 'ProductManageAccess',
     "name": "产品管理",
     "link": '/pm/product'
+  },{
+    "key": 'ProductMapAccess',
+    "name": "产品地图",
+    "link": '/pm/productmap'
   }]
 },{
   "key": 'manu_management',

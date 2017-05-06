@@ -43,13 +43,14 @@ export default class PCHeader extends React.Component{
       <header style={{backgroundColor: '#fff'}}>
         <Row>
           <Col span={4}>
-            <a href="/" class="logo" style={{minWidth:200}}>
-              <img src="/src/images/logo.png" alt="logo"/>
-              <span>Bear</span>
-            </a>
+            <Link to="/">
+              <span class="logo" style={{minWidth:200}}>
+                <img src="/src/images/logo.png" alt="logo"/>
+                <span>Bear</span>
+              </span>
+            </Link>
           </Col>
           <Col span={12}>
-          
             {/*<Menu mode="horizontal" selectedKeys={[this.state.current]}>
               <SubMenu key="sub1" title={<span><Icon type="appstore" /><span>产品管理</span></span>}>
                 <Menu.Item key="product">产品管理</Menu.Item>
