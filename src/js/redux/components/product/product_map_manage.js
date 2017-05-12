@@ -140,13 +140,14 @@ export default class QrcodeManage extends React.Component{
         data: JSON.stringify(data_list),
     })
     .done((data) => {
-       self.setState({list: data.data})
+       self.setState({list: data.data.filter( m => m.type == 1 )})
     })
   }
   fullScreen(){
     this.setState({ fullScreen: !this.state.fullScreen });
   }
   getProductLat(userId){
+    var self = this;
     var data = {
         "header": {
             "tokenOperator": "",
@@ -156,7 +157,7 @@ export default class QrcodeManage extends React.Component{
             "event_id": "get_product_usage_stat_by_xy",
             "param": {
                 "prodId": "1001",
-                userId
+                userId: userId.toString()
             }
         }
     };
@@ -170,6 +171,7 @@ export default class QrcodeManage extends React.Component{
         success: function (data) {
             self._mapInitTimer = setInterval( () => {
               if(self.state.mapPrepared){
+                MyMap.resetScope()
                 MyMap.list = data.data;
                 MyMap.initialScope();
                 clearInterval(self._mapInitTimer);

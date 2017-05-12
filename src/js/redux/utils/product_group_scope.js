@@ -6,6 +6,7 @@ var MyMap = function(list){
   this.centerPoint = null;
   this.list = list;
   this.markers = [];
+  this.cluster = undefined;
 
   this.d = $.Deferred();
   this.searchMarker = null;
@@ -39,18 +40,25 @@ MyMap.prototype.initialScope = function(){
     });
     markers.push(marker);
   })
-  if(cluster){
-    cluster.setMap(null);
+  this.markers =markers;
+  AMap.service('AMap.Geocoder',function(){//回调函数
+      //实例化Geocoder
+      var geocoder = new AMap.Geocoder({
+          city: "深圳"//城市，默认：“全国”
+      });
+      //TODO: 使用geocoder 对象完成相关功能
+  })
+  if (this.cluster) {
+    this.cluster.setMap(null);
   }
   map.plugin(["AMap.MarkerClusterer"], function() {
       cluster = new AMap.MarkerClusterer(map, markers);
   });
+  this.cluster = cluster;
 }
 
 MyMap.prototype.resetScope = function(){
-  this.polygon.setPath([]);
-  this.list[ this.onEditIndex ].coords = [];
-  this.markers.forEach( n => this.map.removeOverlay(n) );
+  this.map.remove(this.markers)
   this.markers = [];
 }
 
