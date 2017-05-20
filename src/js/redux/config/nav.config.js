@@ -38,4 +38,12 @@ export default [{
     "name": '系统权限管理',
     "link": '/am/sysauth'
   }]
+},{
+  "key": 'test_qrcode',
+  "name": '测试二维码',
+  "link": [{
+    "key": 'testAccess',
+    "name": 'QR code',
+    "link": '/test'
+  }]
 }]

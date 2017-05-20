@@ -39,6 +39,15 @@ export default class QrcodeManage extends React.Component{
                 <div>产品100018二维码</div>
                 <img src="/src/images/100018.png" />
               </Col>
+
+              <Col className="gutter-row" span={12} style={{marginTop: 20}}>
+                <div>产品100020二维码</div>
+                <img src="/src/images/100020.png" />
+              </Col>
+              <Col className="gutter-row" span={12} style={{marginTop: 20}}>
+                <div>产品100021二维码</div>
+                <img src="/src/images/100021.png" />
+              </Col>
             </Row>
           </Content>
         </Layout>
