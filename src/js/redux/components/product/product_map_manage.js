@@ -5,6 +5,7 @@ import Nav from '../common/pc_nav';
 const { Content, Sider } = Layout;
 const Search = Input.Search
 import * as config from  'config/app.config.js';
+import { post } from 'utils/request';
 
 
 
@@ -13,7 +14,8 @@ class TopHeader extends React.Component{
     return (
       <div>
         <Breadcrumb style={{ margin: '12px 0' }}>
-          <Breadcrumb.Item>首页</Breadcrumb.Item>
+          <Breadcrumb.Item>产品管理</Breadcrumb.Item>
+          <Breadcrumb.Item>产品地图</Breadcrumb.Item>
         </Breadcrumb>
       </div>
       )
@@ -121,8 +123,8 @@ export default class QrcodeManage extends React.Component{
     }.bind(this));
     var data_list =  {
         "header": {
-            "token": "",
-            "client_key": ""
+            "tokenOperator": "",
+            "tokenDevice": ""
         },
         "data": {
             "event_id": "GetProductList",

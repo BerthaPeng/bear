@@ -73,7 +73,8 @@ export default class PCHeader extends React.Component{
             <div className="header-middle">
               <Dropdown overlay={userShowMenu}  trigger={['click']}>
                   <a className="ant-dropdown-link" href="#">
-                    {JSON.parse(localStorage.user).userNickname} <Icon type="down" />
+
+                    <Icon type="down" />
                   </a>
               </Dropdown>
             </div>
@@ -87,7 +88,7 @@ export default class PCHeader extends React.Component{
   }
   clickHeaderMenu({key} ){
     if(key=="logout"){
-      localStorage.clear();
+      sessionStorage.clear();
       location.reload();
       /*history.push({pathname: '/'})*/
     }

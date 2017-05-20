@@ -9,8 +9,8 @@ import { Layout, Breadcrumb } from 'antd';
 const { Header, Content, Sider } = Layout;
 
 export const Entry = props => {
- return (localStorage.length && JSON.parse(localStorage.login) ? (<Main>{props.children}</Main>) : <Login />  )
-} 
+ return (sessionStorage.getItem("login") == 'Y' ? (<Main>{props.children}</Main>) : <Login />  )
+}
 
 
 class Main extends React.Component{
@@ -76,7 +76,6 @@ class Main extends React.Component{
         </Layout>*/}
 
         <Content style={{padding: '0 50px'}}>
-          
           {/*<Layout style={{padding:'24px 0', background: '#fff' }}>
             <Sider width={200} style={{ background: '#fff' }}>
               <Nav />
@@ -104,8 +103,6 @@ class Main extends React.Component{
           }
         </Content>
       </Layout>
-        
-        
       </Layout>
       )
    }
