@@ -36,7 +36,6 @@ class NormalLoginForm extends React.Component {
           <Button type="primary" htmlType="submit" className="login-btn">
             登 录
           </Button>
-          <p style={{color: '#f50'}}>{this.state.err_msg}</p>
         </FormItem>
       </Form>
     );
@@ -45,14 +44,20 @@ class NormalLoginForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        let { username, password } = values;
+        let { userName, password } = values;
         password = md5(password);
-        post("http://119.23.132.97/api", "user_login_with_mobile", {mobile: username, pwhsh: password})
-          .done(() => {
-            sessionStorage.setItem("username", username);
+        post("http://119.23.132.97/api", "user_login_with_mobile", {mobile: userName, pwhsh: password})
+          .done((data) => {
+            debugger
+            sessionStorage.setItem("username", userName);
             sessionStorage.setItem("login", "Y")
             /*sessionStorage.setItem("token", data.token);
             sessionStorage.setItem("role", data.role)*/
+            if(data.length && data[0].roles == '[501]'){
+              sessionStorage.setItem("role", 'visitor')
+            }else if(data.length && data[0].roles == '[203]'){
+              sessionStorage.setItem("role", 'productmanager')
+            }
             location.reload();
           })
           .fail(() => {

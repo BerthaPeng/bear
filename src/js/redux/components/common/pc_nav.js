@@ -25,7 +25,13 @@ class Nav extends Component {
   }
   render() {
     /*console.warn(location)*/
-    var treeDOM = nav_config.map(firstLevelItem => {
+    var role = sessionStorage.getItem("role");
+    var trans_nav_config = nav_config;
+    if(role == 'visitor'){
+      trans_nav_config = nav_config.filter( m =>  m.role == 'visitor')
+    }
+
+    var treeDOM = trans_nav_config.map(firstLevelItem => {
       if(Util.core.isArray(firstLevelItem.link)){
         let secondLevels = firstLevelItem.link.map(secondLevelItem => {
           return (

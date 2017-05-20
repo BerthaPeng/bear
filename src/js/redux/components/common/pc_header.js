@@ -73,7 +73,7 @@ export default class PCHeader extends React.Component{
             <div className="header-middle">
               <Dropdown overlay={userShowMenu}  trigger={['click']}>
                   <a className="ant-dropdown-link" href="#">
-
+                     {(sessionStorage.getItem("role") == "productmanager" ? '产品经理' : '游客') + sessionStorage.getItem("username")}
                     <Icon type="down" />
                   </a>
               </Dropdown>

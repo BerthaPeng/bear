@@ -18,33 +18,18 @@ function _end_callback(resolve, reject) {
       return;
     }
     if (res.ok) {
-      if(res.body.code != undefined){
-        var {code, msg } = res.body;
-        if(code === 200 || code === 0){
-          resolve(data, msg);
+      var { error_code, error_msg, data } = res.body;
+      if(error_code != undefined){
+        if (error_code === 200 || error_code === 0) {
+          resolve(data, error_msg);
         }else {
-          console.error(msg || 'request error');
-          reject(msg, code);
+          console.error(error_msg || 'request error');
+          reject(error_msg, error_code);
         }
       }else{
-        var { result : {error_code, error_msg, code, msg }, data } = res.body;
-        if(error_code != undefined){
-          if (error_code === 200 || error_code === 0) {
-            resolve(data, error_msg);
-          }else {
-            console.error(error_msg || 'request error');
-            reject(error_msg, error_code);
-          }
-        }else if(code != undefined){
-          if (code === 200 || code === 0) {
-            resolve(data, msg);
-          }else {
-            console.error(msg || 'request error');
-            reject(msg, code);
-          }
-        }
+        console.error(error_msg || 'request error');
+        reject(error_msg, error_code);
       }
-
     } else {
       reject(res.text || 'error');
     }

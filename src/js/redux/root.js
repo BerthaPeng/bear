@@ -44,7 +44,7 @@ const getComponents = (routePath, accessControl) => (nexState, replace, callback
         components.DeptRolePannel = require('./components/authority/dept_role_manage.js').default;
         callback();
       })
-      break;
+      break;                                                                                                                                                                                   
     case 'mm':
       require.ensure([], require => {
         components.ManufactureManagePannel = require('./components/manufacture/manu_manage.js').default;
@@ -52,6 +52,12 @@ const getComponents = (routePath, accessControl) => (nexState, replace, callback
       })
       break;
     default:
+      break;
+    case 'test':
+      require.ensure([], require => {
+        components.TestPannel = require('./components/test/qrcode.js').default;
+        callback();
+      })
       break;
   }
 }
@@ -93,7 +99,7 @@ const Root = () =>(
         <MediaQuery query='(min-device-width: 1224px)'>
           <Router history={history}>
             <Route path="/" component={Entry}>
-              <IndexRoute component={Qrcode}/>
+           
               <Route path="pm" onEnter={getComponents('pm')}>
                 <Route path="product"  >
                   <IndexRoute getComponent={get('ProductPannel')}/>
@@ -113,6 +119,11 @@ const Root = () =>(
               <Route path="mm" onEnter={getComponents('mm')}>
                 <Route path="process" getComponents={get('ManufactureManagePannel')} />
               </Route>
+
+              <Route path="test" onEnter={getComponents('test')}>
+                  <IndexRoute component={Qrcode}/>
+              </Route>
+
             </Route>
           </Router>
         </MediaQuery>
