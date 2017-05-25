@@ -116,8 +116,8 @@ class Main extends React.Component{
 
 
 
-/*export const NoPermission = () => (<h1><center>没有权限</center></h1>);
+export const NoPermission = () => (<h1><center>没有权限</center></h1>);
 
-export const NoPage = () => (<h1><center>404</center></h1>);
+/*export const NoPage = () => (<h1><center>404</center></h1>);
 
 export const ComingSoon = () => (<h1><center><i>Coming Soon !</i></center></h1>);*/

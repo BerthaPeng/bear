@@ -41,13 +41,14 @@ MyMap.prototype.initialScope = function(){
     markers.push(marker);
   })
   this.markers =markers;
-  AMap.service('AMap.Geocoder',function(){//回调函数
+  /*AMap.service('AMap.Geocoder',function(){//回调函数
       //实例化Geocoder
       var geocoder = new AMap.Geocoder({
           city: "深圳"//城市，默认：“全国”
       });
       //TODO: 使用geocoder 对象完成相关功能
-  })
+  })*/
+  map.setZoomAndCenter(12, this.centerPoint);
   if (this.cluster) {
     this.cluster.setMap(null);
   }

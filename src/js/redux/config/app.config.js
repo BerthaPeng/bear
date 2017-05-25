@@ -41,6 +41,8 @@ var ajaxData = function(event , params){
 export default {
   fetchOptions,
   ajaxData,
+  ajax: 'http://119.23.132.97/api',
+  test_auth: true, //开启测试权限时为true
 /*  requestUrl: 'http://119.23.132.97:8001/api',
   trace_product: 'http://119.23.132.97:8001/api/trace_product',
   product_info: 'http://119.23.132.97:8001/api/product',*/

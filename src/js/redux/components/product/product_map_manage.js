@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input , Select, Button, Table, Icon, Layout, Breadcrumb, Row, Col} from 'antd';
+import { Input , Select, Button, Table, Icon, Layout, Breadcrumb, Row, Col, message} from 'antd';
 import MyMap from 'utils/product_group_scope';
 import Nav from '../common/pc_nav';
 const { Content, Sider } = Layout;
@@ -68,7 +68,7 @@ export default class QrcodeManage extends React.Component{
       key: 'standard'
     },{
       title: '操作',
-      key: 'action' + 'id',
+      key: 'action',
       render: (text, record) => (
         <span>
           <a href="javascript:;" onClick={this.getProductLat.bind(this, record.id)}>查看分布</a>
@@ -92,7 +92,7 @@ export default class QrcodeManage extends React.Component{
             <Col span={10}>
               <div className="panel">
                 <div className="panel-body">
-                  <Table columns={columns} dataSource={list} />
+                  <Table rowKey="id" columns={columns} dataSource={list} />
                 </div>
               </div>
             </Col>
@@ -121,67 +121,35 @@ export default class QrcodeManage extends React.Component{
     MyMap.create(function(map){
       this.setState({ mapPrepared: true });
     }.bind(this));
-    var data_list =  {
-        "header": {
-            "tokenOperator": "",
-            "tokenDevice": ""
-        },
-        "data": {
-            "event_id": "GetProductList",
-            "param": {
-              "companyId": "1005"
-            }
-        }
-    };
-    $.ajax({
-        url: "http://119.23.132.97/api/product",
-        type: "POST",
-        cache: false,
-        contentType: "application/json",
-        dataType: "json",
-        data: JSON.stringify(data_list),
-    })
+    post('http://119.23.132.97/api', 'GetProductList', {companyId: '1005'})
     .done((data) => {
-       self.setState({list: data.data.filter( m => m.type == 1 )})
+       self.setState({list: data.filter( m => m.type == 1 )})
+    })
+    .fail( msg => {
+      message(msg || '网络异常，请稍后再试')
     })
   }
   fullScreen(){
     this.setState({ fullScreen: !this.state.fullScreen });
   }
-  getProductLat(userId){
+  getProductLat(prodId){
     var self = this;
-    var data = {
-        "header": {
-            "tokenOperator": "",
-            "tokenDevice": ""
-        },
-        "data": {
-            "event_id": "get_product_usage_stat_by_xy",
-            "param": {
-                "prodId": "1001",
-                userId: userId.toString()
-            }
-        }
-    };
-    $.ajax({
-        url: "http://119.23.132.97/api/trace_product",
-        type: "POST",
-        cache: false,
-        contentType: "application/json",
-        dataType: "json",
-        data: JSON.stringify(data),
-        success: function (data) {
-            self._mapInitTimer = setInterval( () => {
-              if(self.state.mapPrepared){
-                MyMap.resetScope()
-                MyMap.list = data.data;
-                MyMap.initialScope();
-                clearInterval(self._mapInitTimer);
-                self.state.callback && self.state.callback();
-              }
-            }, 100)
-        }
-    });
+    var userId = sessionStorage.getItem('userid');
+    post('http://119.23.132.97/api', 'get_product_usage_stat_by_xy', {prodId: prodId.toString(), userId})
+      .done( data => {
+        self._mapInitTimer = setInterval( () => {
+          if(self.state.mapPrepared){
+            MyMap.resetScope()
+            MyMap.list = data;
+            MyMap.initialScope();
+            clearInterval(self._mapInitTimer);
+            self.state.callback && self.state.callback();
+          }
+        }, 100)
+      })
+      .fail( msg => {
+        message(msg || '网络异常，请稍后再试')
+      })
   }
   componentWillReceiveProps(nextProps) {
       this._mapInitTimer = setInterval( () => {

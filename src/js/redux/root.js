@@ -8,14 +8,47 @@ import ProductManage from './components/product/product_manage';*/
 import MobileIndex from './components/mobile_index';
 import MobileProduct from './components/product/mobile_product';
 
-import {Entry} from './components/common/pc_body';
+import {Entry, NoPermission} from './components/common/pc_body';
 import {MobileEntry} from './components/common/mobile_body';
 import Qrcode from './components/test/qrcode';
-/*import 'antd/dist/antd.css';*/
-
 import MediaQuery from 'react-responsive';
 
+import config from 'config/app.config';
+import authList from 'config/auth.config';
 let components = {};
+
+/**
+ * 有无该权限
+ * @param  {String} auth 权限名
+ */
+export default function validate ( auth ){
+  var role = sessionStorage.getItem("role");
+  var login = sessionStorage.getItem("Y");
+  var m = config;
+  //特殊情况
+  if( !config.test_auth || role == 'admin' ){
+    return true;
+  }
+  var permissions = authList.auth[role];
+  return permissions.some( n => n === auth );
+}
+/**
+ * 注意，路由的权限控制存在于两部分，一部分在react-router当中，一部分在nav当中;
+ * 该方法用于react-router当中，进行权限控制
+ * @param  {String} auth 权限名
+ */
+export function onEnter( auth ){
+  return function (state, replace) {
+    //登录成功之后，才有必要进行validate
+    if( sessionStorage.getItem("login") == 'Y' ){
+      if( !validate( auth ) ){
+        replace({}, '/403', null);
+        return false;
+      }
+    }
+    return true;
+  }
+}
 
 const getComponents = (routePath, accessControl) => (nexState, replace, callback) => {
   if(accessControl && !accessControl(nexState, replace)){
@@ -44,20 +77,20 @@ const getComponents = (routePath, accessControl) => (nexState, replace, callback
         components.DeptRolePannel = require('./components/authority/dept_role_manage.js').default;
         callback();
       })
-      break;                                                                                                                                                                                   
+      break;
     case 'mm':
       require.ensure([], require => {
         components.ManufactureManagePannel = require('./components/manufacture/manu_manage.js').default;
         callback();
       })
       break;
-    default:
-      break;
     case 'test':
       require.ensure([], require => {
         components.TestPannel = require('./components/test/qrcode.js').default;
         callback();
       })
+      break;
+    default:
       break;
   }
 }
@@ -99,13 +132,12 @@ const Root = () =>(
         <MediaQuery query='(min-device-width: 1224px)'>
           <Router history={history}>
             <Route path="/" component={Entry}>
-           
               <Route path="pm" onEnter={getComponents('pm')}>
                 <Route path="product"  >
                   <IndexRoute getComponent={get('ProductPannel')}/>
                   <Route path="add" getComponent={get('ProductFormPannel')} />
                 </Route>
-                <Route path="productmap" getComponents={get('ProductMapPannel')} />
+                <Route onEnter={onEnter("ProductMapAccess")} path="productmap" getComponents={get('ProductMapPannel')} />
               </Route>
               <Route path="am" onEnter={getComponents('am')}>
                 <Route path="user">
@@ -123,6 +155,7 @@ const Root = () =>(
               <Route path="test" onEnter={getComponents('test')}>
                   <IndexRoute component={Qrcode}/>
               </Route>
+              <Route path="403" component={NoPermission} />
 
             </Route>
           </Router>
@@ -135,8 +168,8 @@ const Root = () =>(
               </Route>
             </Route>*/}
             <Route path="/" component={MobileIndex} />
-            {/*<Route path="/pm/product/:id" component={MobileProduct}></Route>*/} 
-            <Route path="/product/:id" component={MobileProduct}></Route> 
+            {/*<Route path="/pm/product/:id" component={MobileProduct}></Route>*/}
+            <Route path="/product/:id" component={MobileProduct}></Route>
               {/*<Route path="/pm/product/:id" getComponent={get('ProductDetailPannel')} />*/}
           </Router>
         </MediaQuery>

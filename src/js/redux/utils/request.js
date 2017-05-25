@@ -62,7 +62,7 @@ export function get(url, data) {
 export function post(url, event_id, param){
   var data ={
         header: {
-          tokenOperator: '',
+          tokenOperator: sessionStorage.getItem("token") || '',
           tokenDevice: '',
         },
         data: {

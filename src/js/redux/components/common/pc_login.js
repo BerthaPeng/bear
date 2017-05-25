@@ -11,11 +11,12 @@ class NormalLoginForm extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      err_msg: '登录失败！用户名或密码错误',
+      err_msg: '',
     }
   }
   render() {
     const { getFieldDecorator } = this.props.form;
+    let { err_msg } = this.state;
     return (
       <Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
         <FormItem>
@@ -33,6 +34,7 @@ class NormalLoginForm extends React.Component {
           )}
         </FormItem>
         <FormItem>
+          <span style={{color: 'red'}}>{err_msg}</span>
           <Button type="primary" htmlType="submit" className="login-btn">
             登 录
           </Button>
@@ -48,11 +50,10 @@ class NormalLoginForm extends React.Component {
         password = md5(password);
         post("http://119.23.132.97/api", "user_login_with_mobile", {mobile: userName, pwhsh: password})
           .done((data) => {
-            debugger
             sessionStorage.setItem("username", userName);
-            sessionStorage.setItem("login", "Y")
-            /*sessionStorage.setItem("token", data.token);
-            sessionStorage.setItem("role", data.role)*/
+            sessionStorage.setItem("userid", data[0].id);
+            sessionStorage.setItem("login", "Y");
+            sessionStorage.setItem('token', data[0].tokenOperator);
             if(data.length && data[0].roles == '[501]'){
               sessionStorage.setItem("role", 'visitor')
             }else if(data.length && data[0].roles == '[203]'){
