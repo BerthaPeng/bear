@@ -10,7 +10,6 @@ import MobileProduct from './components/product/mobile_product';
 
 import {Entry, NoPermission} from './components/common/pc_body';
 import {MobileEntry} from './components/common/mobile_body';
-import Qrcode from './components/test/qrcode';
 import MediaQuery from 'react-responsive';
 
 import config from 'config/app.config';
@@ -86,7 +85,9 @@ const getComponents = (routePath, accessControl) => (nexState, replace, callback
       break;
     case 'test':
       require.ensure([], require => {
-        components.TestPannel = require('./components/test/qrcode.js').default;
+        components.QrcodeManagePannel = require('./components/test/qrcode.js').default;
+        components.BeltlineManangePannel = require('./components/test/beltline_manage.js').default;
+        components.BeltlineFormPannel = require('./components/test/beltline_form.js').default;
         callback();
       })
       break;
@@ -153,7 +154,11 @@ const Root = () =>(
               </Route>
 
               <Route path="test" onEnter={getComponents('test')}>
-                  <IndexRoute component={Qrcode}/>
+                  <Route path="qrcode" getComponents={get('QrcodeManagePannel')} />
+                  <Route path="beltline">
+                    <IndexRoute getComponents={get('BeltlineManangePannel')} />
+                    <Route path="add" getComponents={get('BeltlineFormPannel')} />
+                  </Route>
               </Route>
               <Route path="403" component={NoPermission} />
 

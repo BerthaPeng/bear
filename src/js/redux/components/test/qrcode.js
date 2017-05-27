@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 import { Input , Select, Button, Table, Icon, Layout, Breadcrumb, Row, Col} from 'antd';
 import Nav from '../common/pc_nav';
 const { Content, Sider } = Layout;
@@ -9,8 +10,14 @@ class TopHeader extends React.Component{
     return (
       <div>
         <Breadcrumb style={{ margin: '12px 0' }}>
-          <Breadcrumb.Item>首页</Breadcrumb.Item>
+          <Breadcrumb.Item>测试</Breadcrumb.Item>
+          <Breadcrumb.Item>产品二维码</Breadcrumb.Item>
         </Breadcrumb>
+        <div className="top-header-btns">
+          <div className="bread-guide">
+            <Link to="/test/beltline/add"><Button type="primary">进入产品线</Button></Link>
+          </div>
+        </div>
       </div>
       )
   }
