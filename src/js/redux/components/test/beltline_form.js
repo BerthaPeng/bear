@@ -48,21 +48,6 @@ const bottleSteps = [{
   title: '完成',
   content: '完成'
 }];
-const trackSteps = [{
-  title: '生产',
-  desc: '',
-},{
-  title: '集装运输',
-  desc: '',
-},{
-  title: '进仓',
-  desc: '',
-}]
-/*const customDot = (dot, { status, index }) => (
-  <Popover content={<span>step {index} status: {status}</span>}>
-    {dot}
-  </Popover>
-);*/
 class DeviceOptions extends React.Component {
   render(){
     var options = config.device_list;
@@ -164,9 +149,7 @@ export default class ProductForm extends React.Component{
 
       current_track_step: null,
 
-      ingre_modal_visible: false,
       product_list_modal_visible: false,
-      ship_modal_visible: false,
 
       instance_pork_list: [ ],
       instance_pickle_list: [],
@@ -175,32 +158,26 @@ export default class ProductForm extends React.Component{
       instance_can_list: [],
       produced_instance_can_list: [],
       instance_pack_list: [],
-      instance_pack_storage_list: [],
 
       select_ingre_pork_list: [],
       select_ingre_bottle_list: [],
       select_ingre_pickle_list: [],
       select_can_list: [],
-      select_pack_list: [],
-      select_pack_storage_list: [],
       step1_result_id: '',
       activeKey: '',
 
       current_logistic_step: 0,
+      shipdest: '',
     }
   }
   render(){
     var { product_count, package_count, submit_ing, source_list, pid, current_type, current_step,
       selected_type, current_steps, porkType, pickleType, bottleType, current_divides,
       meat_count, pickle_count, bottle_count, current_img_src, current_divide_img_src, produced_instance_can_list,
-      current_track_step, ingre_modal_visible,instance_pork_list,instance_pickle_list,instance_bottle_list,
-      instance_can_list, instance_pack_list, instance_pack_storage_list, current_logistic_step,
+      current_track_step,instance_pork_list,instance_pickle_list,instance_bottle_list,
+      instance_can_list, instance_pack_list, current_logistic_step,
+      select_ingre_bottle_list, select_ingre_pickle_list, select_ingre_pork_list, select_can_list,
       product_list_modal_visible, ship_modal_visible, step1_result_id, activeKey } = this.state;
-    var instance_pork_list_checkbox = this.state.instance_pork_list.map( m => ({label: '猪肉' + m + '号', value: m}))
-    var instance_pickle_list_checkbox = this.state.instance_pickle_list.map( m => ({label: '咸菜' + m + '号', value: m}))
-    var instance_bottle_list_checkbox = this.state.instance_bottle_list.map( m => ({label: '瓶子' + m + '号', value: m}))
-    var instance_can_list_checkbox = this.state.instance_can_list.map( m => ({label: '梅菜扣肉罐头' + m + '号', value: m}))
-    var instance_pack_list_checkbox = this.state.instance_pack_list.map( m => ({label: '包裹' + m + '号', value: m}))
     const divides = [1, 2, 3,4, 5, 6, 7, 8, 9, 10];
     var device_list = config;
     return (
@@ -248,7 +225,7 @@ export default class ProductForm extends React.Component{
                         <div className="img" onClick={this.openPanel.bind(this, 'package')}>
                           <img src="/src/images/package.png" />
                         </div>
-                        <div className='text'>集装运输</div>
+                        <div className='text'>打包</div>
                       </li>
                       <li class="arrow"></li>
                       <li  class={activeKey == 'logistic' ? 'process-step active': 'process-step'}>
@@ -314,19 +291,6 @@ export default class ProductForm extends React.Component{
                               </Badge>
                             </div>
                           </Col>
-                          {/*<Col span={5}>
-                            <div>
-                              <Badge id="bottle-badg" count={bottle_count} showZero style={{ backgroundColor: '#87d068'}}>
-                                  <a className="ingre canbox">
-                                  </a>
-                              </Badge>
-                            </div>
-                          </Col>*/}
-                          {/*<Col span={4}>
-                            <Button onClick={() => {this.setState({produce_modal_visible: true})}}>生产</Button><br />
-                            <Button onClick={() => {this.setState({ship_modal_visible: true})}}  style={{marginTop: '10px'}}>集装运输</Button><br />
-                            <Button  style={{marginTop: '10px'}}>进仓</Button>
-                          </Col>*/}
                         </Row>
                       </div>
                       <div>
@@ -436,15 +400,18 @@ export default class ProductForm extends React.Component{
                       <div style={{marginTop: '20px'}}>
                         <div style={{padding: '8px'}}>
                           <Tag color="cyan">猪肉</Tag>
-                          <CheckboxGroup onChange={this.selectInstance.bind(this, porkType)} options={instance_pork_list_checkbox} />
+                          <CheckboxGroup value={select_ingre_pork_list} onChange={this.selectInstance.bind(this, porkType)} 
+                            options={instance_pork_list.map( m => ({label: '猪肉' + m + '号', value: m}))} />
                         </div>
                         <div style={{padding: '8px'}}>
                           <Tag color="cyan">咸菜</Tag>
-                          <CheckboxGroup onChange={this.selectInstance.bind(this, pickleType)}  options={instance_pickle_list_checkbox}/>
+                          <CheckboxGroup value={select_ingre_pickle_list} onChange={this.selectInstance.bind(this, pickleType)}  
+                            options={instance_pickle_list.map( m => ({label: '腌菜' + m + '号', value: m}))}/>
                         </div>
                         <div style={{padding: '8px'}}>
                           <Tag color="cyan">瓶子</Tag>
-                          <CheckboxGroup onChange={this.selectInstance.bind(this, bottleType)}  options={instance_bottle_list_checkbox}/>
+                          <CheckboxGroup value={select_ingre_bottle_list} onChange={this.selectInstance.bind(this, bottleType)}  
+                            options={instance_bottle_list.map( m => ({label: '瓶子' + m + '号', value: m}))}/>
                         </div>
                       </div>
                       <div style={{marginTop: '20px'}} >
@@ -452,7 +419,7 @@ export default class ProductForm extends React.Component{
                       </div>
                       <Button style={{marginTop: '20px'}} type="primary" onClick={this.onProduce.bind(this)}>生产</Button>
                     </Panel>
-                    <Panel header="集装运输工作间" key="package">
+                    <Panel header="打包工作间" key="package">
                       <div className="recipe">
                         <p />产品清单：现在罐头{instance_can_list.length}份
                       </div>
@@ -465,21 +432,30 @@ export default class ProductForm extends React.Component{
                       <div style={{marginTop: '20px'}}>
                         <div style={{padding: '8px'}}>
                           <Tag color="cyan">罐头</Tag>
-                          <CheckboxGroup onChange={this.selectInstance.bind(this, 'can')} options={instance_can_list_checkbox} />
+                          <CheckboxGroup value={select_can_list} onChange={this.selectInstance.bind(this, 'can')} 
+                            options={instance_can_list.map( m => ({label: '梅菜扣肉罐头' + m + '号', value: m}))} />
                         </div>
                         <div style={{padding: '8px'}}>
                           <Tag color="cyan">发往地点</Tag>
-                          <Input id="shipdest" ref="shipdest" type="text" style={{width: '200px'}} />
+                          <Select
+                              style={{ width: 200 }}
+                              placeholder="请选择"
+                              onChange={this.handleDestChange.bind(this)}
+                            >
+                              <Option value="ShenZhen">深圳</Option>
+                              <Option value="GuangZhou">广州</Option>
+                              <Option value="Wuhan">武汉</Option>
+                            </Select>
                         </div>
                         <div>
                           <DeviceOptions value={1} />
                         </div>
                       </div>
-                      <Button style={{marginTop: '20px'}} type="primary" onClick={this.onPackage.bind(this)}>集装</Button>
+                      <Button style={{marginTop: '20px'}} type="primary" onClick={this.onPackage.bind(this)}>打包</Button>
                     </Panel>
                     <Panel header="物流工作间" key="logistic">
                       <div className="recipe">
-                        <p />包裹清单：现有包裹{instance_pack_storage_list.length}个
+                        <p />包裹清单：现有包裹{instance_pack_list.length}个
                       </div>
                       <div style={{marginTop: '20px'}}>
                       <Steps current={current_logistic_step}>
@@ -514,21 +490,13 @@ export default class ProductForm extends React.Component{
                           {
                             this.state.current_logistic_step === 2
                             &&
-                            <Button type="primary" onClick={() => this.onLogistic("4", "1003")}>卖场入库</Button>
+                            <Button type="primary" onClick={() => this.onLogistic("4", "1001")}>卖场入库</Button>
                           }
                         </div>
                     </Panel>
                   </Collapse>
                 </div>
               </div>
-              <Modal
-                title="材料清单"
-                visible={ingre_modal_visible}
-              >
-                <p>猪肉：18块</p>
-                <p>咸菜：20份</p>
-                <p>瓶子：100个</p>
-              </Modal>
               <Modal
                 title="产品二维码"
                 visible={product_list_modal_visible}
@@ -537,17 +505,6 @@ export default class ProductForm extends React.Component{
                 footer = {null}
               >
                 <QRCodePanel list={produced_instance_can_list}/>
-              </Modal>
-              <Modal
-                title="打包运输"
-                visible={ship_modal_visible}
-                onOK = {() => { this.setState({ship_modal_visible: false})}}
-                onCancel = {() => { this.setState({ship_modal_visible: false})}}
-              >
-              <div style={{padding: '8px'}}>
-                <Tag color="cyan">梅菜扣肉罐头</Tag>
-                <CheckboxGroup options={instance_can_list_checkbox} />
-              </div>
               </Modal>
             </div>
           </Content>
@@ -585,8 +542,6 @@ export default class ProductForm extends React.Component{
         this.setState({select_ingre_bottle_list: checkedValues});break;
       case 'can':
         this.setState({select_can_list: checkedValues});break;
-      case 'pack':
-        this.setState({select_pack_list: checkedValues});break;
       default:break;
     }
   }
@@ -613,12 +568,15 @@ export default class ProductForm extends React.Component{
         var new_instance_pickle_list = instance_pickle_list.filter( m => select_ingre_pickle_list.every( n => n != m));
         var new_instance_bottle_list = instance_bottle_list.filter( m => select_ingre_bottle_list.every( n => n != m));
         self.setState({
-          instance_can_list: [...instance_can_list, ...data],
-          produced_instance_can_list: [...produced_instance_can_list, ...data ],
+         instance_can_list: [...instance_can_list, ...data],
+         produced_instance_can_list: [...produced_instance_can_list, ...data ],
          submit_ing: false,
          instance_bottle_list: new_instance_bottle_list,
          instance_pickle_list: new_instance_pickle_list,
          instance_pork_list: new_instance_pork_list,
+         select_ingre_pork_list: [],
+         select_ingre_bottle_list: [],
+         select_ingre_pickle_list: [],
        })
       })
       .fail( msg => {
@@ -628,39 +586,45 @@ export default class ProductForm extends React.Component{
 
   }
   onPackage(){
-    let shipdest = document.getElementById("shipdest").value;
-    let { select_can_list, instance_can_list, instance_pack_list } = this.state;
+    let { select_can_list, instance_can_list, instance_pack_list, shipdest } = this.state;
     let self = this;
-    post("http://119.23.132.97/api", "handle_product_event", {
-      type: '8',
-      new_instances: [{
-        pid: "108",
-        instance_type: "88",
-      }],
-      existing_instances: select_can_list.map(m => ({id: m.toString()})),
-      shipping: [{
+    if(shipdest=="" || !shipdest){
+      message.error('请选择发往地点');return;
+    }else{
+      post("http://119.23.132.97/api", "handle_product_event", {
+        type: '3',
+        new_instances: [{
+          pid: "108",
+          instance_type: "88",
+        }],
+        existing_instances: select_can_list.map(m => ({id: m.toString()})),
         destination: shipdest,
-      }],
-      tokenDevice: "1",
-    })
-    .done((data) => {
-      var new_instance_can_list = instance_can_list.filter( m => select_can_list.every( n => n != m));
-      self.setState({instance_can_list: [...instance_can_list, ...data],
-       instance_can_list: new_instance_can_list,
-       instance_pack_list: [...instance_pack_list, ...data],
-     })
-    })
-    .fail( msg => {
-       message.error(msg || '网络异常，请稍后再试')
-    })
+        tokenDevice: "1",
+      })
+      .done((data) => {
+        var new_instance_can_list = instance_can_list.filter( m => select_can_list.every( n => n != m));
+        self.setState({instance_can_list: [...instance_can_list, ...data],
+         instance_can_list: new_instance_can_list,
+         instance_pack_list: [...instance_pack_list, ...data],
+         select_can_list: [],
+       })
+      })
+      .fail( msg => {
+         message.error(msg || '网络异常，请稍后再试')
+      })
+    }
   }
   onLogistic(device_id, type){
     let { instance_pack_list, current_logistic_step } = this.state;
     let self = this;
+    let final_dest = "0";
+    if(current_logistic_step == 2){
+      final_dest = "1"
+    }
     post("http://119.23.132.97/api", "handle_product_event", {
       type,
       existing_instances: instance_pack_list.map(m => ({id: m.toString()})),
-      final_dest: "0",
+      final_dest,
       device_id: device_id,
       tokenDevice: device_id,
     })
@@ -678,7 +642,7 @@ export default class ProductForm extends React.Component{
   }
   getIngre(type){
     var { porkType, pickleType, bottleType} = this.state;
-    this.setState({current_type: type, current_step: 0})
+    this.setState({current_type: type, current_step: 0, current_divides: 1})
     switch(type) {
       case porkType:
         this.setState({
@@ -733,11 +697,18 @@ export default class ProductForm extends React.Component{
             if(current_divides <= 0){
               message.warning('请输入分隔的块数'); return;
             }
-            let i = 0, new_instances = [];
+            let i = 0, new_instances = [], pid = "115", type = "9";
+            if(current_type == porkType){
+              pid="115";
+              type="9";
+            }else if(current_type == pickleType){
+              pid = "116"
+              type = "10";
+            }
             while(i < current_divides){
               i++;
               new_instances.push({
-                pid: '115',
+                pid,
                 instance_type: '66'
               })
             }
@@ -745,7 +716,7 @@ export default class ProductForm extends React.Component{
               post('http://119.23.132.97/api', 'handle_product_event',
                 {
                   tokenDevice: "1",
-                  type: '9',
+                  type,
                   new_instances,
                   existing_instances:  step1_result_id.map( m => ({id: m.toString()}))
               }
@@ -777,6 +748,9 @@ export default class ProductForm extends React.Component{
           default: return;break;
         }
       }
+    }
+    handleDestChange(e){
+      this.setState({shipdest: e});
     }
   toFlyImag(flyImg, target){
     var self = this;
@@ -816,7 +790,6 @@ export default class ProductForm extends React.Component{
             self.setState({bottle_count: bottle_count + current_divides});break;
           default:;break;
         }
-        /*self.resetStep();*/
       }
     });
     // 需要重定位
@@ -827,6 +800,9 @@ export default class ProductForm extends React.Component{
   }
   openPanel(panelKey){
     message.success('小助手提示：已在下方为您打开相应的工作面板^_^!', 5);
+    if(panelKey == 'logistic'){
+      this.setState({current_logistic_step: 0});
+    }
     this.setState({activeKey: panelKey});
   }
   resetStep(){
