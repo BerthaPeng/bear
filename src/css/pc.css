@@ -322,6 +322,107 @@ label{
   width: 100%;
   height: 100%;
 }
+.recipe{
+  padding: 8px 10px;
+  background-color: #cfedf0;
+  color: #00a2ae;
+}
+
+.steps-content {
+  margin-top: 16px;
+  border: 1px dashed #e9e9e9;
+  border-radius: 6px;
+  background-color: #fafafa;
+  min-height: 200px;
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+
+.ingre{
+  height: 128px;
+  width: 128px;
+  display: inherit;
+  border-radius: 5px;
+}
+.ingre.porkbox{
+  background: url(/src/images/meat3.png);
+}
+.ingre.picklebox{
+  background: url(/src/images/pickle.png);
+}
+.ingre.bottlebox{
+  background: url(/src/images/bottle3.png);
+}
+.ingre.canbox{
+  background: url(/src/images/jar.png);
+}
+.ingre:hover >.produce-btn{
+    display: inline-block;
+}
+.ingre:hover{
+    border: 2px solid #108ee9;
+}
+.ingre.active{
+  border: 2px solid #108ee9;
+}
+.ingre.active > .produce-btn{
+  display: inline-block;
+}
+
+.ingre > .produce-btn{
+    display: none;
+  }
+.process-guide{
+  height: 120px;
+  padding: 20px 0px;
+}
+.process-step .img{
+  height: 64px;
+  width: 64px;
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
+  border: 2px solid #666;
+  border-radius: 5px;
+}
+.process-step .text{
+  width: 64px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.process-step:hover > .img{
+  border: 2px solid #2db7f5;
+}
+
+.process-step:hover > .text{
+  color: #2db7f5;
+}
+.process-step.active .img {
+  border: 2px solid #2db7f5;
+}
+.process-step.active .text{
+  color: #2db7f5;
+}
+
+.img img{
+  width: 48px;
+  height: 48px;
+}
+.process-guide li{
+  float: left;
+  padding: 8px 15px;
+}
+ul,li{
+  margin: 0;
+  padding: 0;
+}
+
+.product-container li{
+  float: left;
+  padding: 5px 10px;
+}
 
 
 

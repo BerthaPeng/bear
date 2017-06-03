@@ -20,8 +20,10 @@ function _end_callback(resolve, reject) {
     if (res.ok) {
       var { error_code, error_msg, data } = res.body;
       if(error_code != undefined){
-        if (error_code === 200 || error_code === 0) {
+        if (error_code === 200001 || error_code === 200002 || error_code === 200003) {
           resolve(data, error_msg);
+        }else if(error_code === 400002){
+          sessionStorage.clear();
         }else {
           console.error(error_msg || 'request error');
           reject(error_msg, error_code);
@@ -60,10 +62,16 @@ export function get(url, data) {
 }*/
 
 export function post(url, event_id, param){
+  let tokenDevice = "";
+  if(param.tokenDevice){
+    tokenDevice = param.tokenDevice;
+    delete param.tokenDevice;
+  }
   var data ={
         header: {
           tokenOperator: sessionStorage.getItem("token") || '',
-          tokenDevice: '',
+          /*tokenOperator: '',*/
+          tokenDevice: tokenDevice,
         },
         data: {
           event_id,

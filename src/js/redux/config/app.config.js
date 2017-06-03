@@ -37,10 +37,18 @@ var ajaxData = function(event , params){
   }
 }
 
+var device_list = [
+  {id: 1, text: '生产线'},
+  {id: 2, text: '仓库入口1'},
+  {id: 3, text: '仓库出口1'},
+  {id: 4, text: '沃尔玛入口1'},
+]
+
 
 export default {
   fetchOptions,
   ajaxData,
+  device_list,
   ajax: 'http://119.23.132.97/api',
   test_auth: true, //开启测试权限时为true
 /*  requestUrl: 'http://119.23.132.97:8001/api',

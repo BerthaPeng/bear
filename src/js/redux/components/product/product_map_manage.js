@@ -128,6 +128,15 @@ export default class QrcodeManage extends React.Component{
     .fail( msg => {
       message(msg || '网络异常，请稍后再试')
     })
+    post('https://www.wulian2025.net/api', 'handle_qr_scanning', {
+      "instance": "10000000010",
+      "latitude": "23.132191",
+      "longitude": "113.266531",
+      "wid": "oJdP70B5dORP7clHKvfiRv1GZ3Lo"
+    })
+    post('https://www.wulian2025.net/api', 'get_product_info', {
+      "pid": '104'
+    })
   }
   fullScreen(){
     this.setState({ fullScreen: !this.state.fullScreen });
