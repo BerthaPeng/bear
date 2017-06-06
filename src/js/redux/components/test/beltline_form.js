@@ -4,8 +4,8 @@ import { Input , Select, Button, Table, Icon, Layout, Breadcrumb, Modal,
          Transfer, Checkbox, Row, Col, Tag, Badge, message, Steps, Radio,
          InputNumber, Collapse
        } from 'antd';
-import { post } from 'utils/request';
 import config from 'config/app.config';
+import { getProductIngredients, handleProductEvent } from 'actions/index';
 
 const Panel = Collapse.Panel;
 const { Content } = Layout;
@@ -514,7 +514,7 @@ export default class ProductForm extends React.Component{
   }
   componentDidMount(){
     var self = this;
-    post('http://119.23.132.97/api', 'get_product_ingredients', {pid: '109'})
+    getProductIngredients()
     .done((data) => {
        var ingre = [];
        ingre = data.map( m => ({key: m.id, type: m.type, description: m.briefing, title: m.name}))
@@ -554,7 +554,7 @@ export default class ProductForm extends React.Component{
     this.setState({pid: '', submit_ing: true})
     let existing_instances = [...select_ingre_pork_list, ...select_ingre_pickle_list, ...select_ingre_bottle_list]
     .map( m => ({id: m.toString()}));
-    post("http://119.23.132.97/api", "handle_product_event", {
+    handleProductEvent({
       type: '8',
       new_instances: [{
         pid: "109",
@@ -591,7 +591,7 @@ export default class ProductForm extends React.Component{
     if(shipdest=="" || !shipdest){
       message.error('请选择发往地点');return;
     }else{
-      post("http://119.23.132.97/api", "handle_product_event", {
+      handleProductEvent({
         type: '3',
         new_instances: [{
           pid: "108",
@@ -621,7 +621,7 @@ export default class ProductForm extends React.Component{
     if(current_logistic_step == 2){
       final_dest = "1"
     }
-    post("http://119.23.132.97/api", "handle_product_event", {
+    handleProductEvent({
       type,
       existing_instances: instance_pack_list.map(m => ({id: m.toString()})),
       final_dest,
@@ -676,7 +676,7 @@ export default class ProductForm extends React.Component{
         let instance_type;
         switch(current_step){
           case 0:
-            post('http://119.23.132.97/api', 'handle_product_event',
+            handleProductEvent(
               { type: '5',
                 tokenDevice: "1",
                 new_instances: [{pid: selected_type.toString(), instance_type: "66"}]})
@@ -713,7 +713,7 @@ export default class ProductForm extends React.Component{
               })
             }
             if(current_type != bottleType){
-              post('http://119.23.132.97/api', 'handle_product_event',
+              handleProductEvent(
                 {
                   tokenDevice: "1",
                   type,

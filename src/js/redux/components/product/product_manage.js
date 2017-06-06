@@ -138,7 +138,7 @@ export default class ProductManage extends React.Component{
       </div>
       )
   }
-  componentDidMount(){
+/*  componentDidMount(){
         var options = config.default.fetchOptions('POST', 'GetProductList', {})
         fetch(config.default.product_info, options)
         .then(res => res.json())
@@ -147,5 +147,5 @@ export default class ProductManage extends React.Component{
           this.setState({list: data})
         })
         .catch(ex => {console.warn("parsed err: " + ex)})
-  }
+  }*/
 }

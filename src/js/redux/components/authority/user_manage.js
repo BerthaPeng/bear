@@ -129,7 +129,7 @@ export default class UserManage extends React.Component{
       </div>
       )
   }
-  componentDidMount(){
+  /*componentDidMount(){
         var options = config.default.fetchOptions('POST', 'GetProductList', {})
         fetch(config.default.requestUrl, options)
         .then(res => res.json())
@@ -139,5 +139,5 @@ export default class UserManage extends React.Component{
         })
         .catch(ex => {console.warn("parsed err: " + ex)})
 
-  }
+  }*/
 }

@@ -43,10 +43,6 @@ export default [{
   "name": '测试',
   "role": "visitor",
   "link": [{
-    "key": 'QrcodeManangeAccess',
-    "name": 'QR code',
-    "link": '/test/qrcode'
-  },{
     "key": "BeltlineManageAccess",
     "name": '生产线',
     "link": '/test/beltline'

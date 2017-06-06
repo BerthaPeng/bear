@@ -44,6 +44,7 @@ module.exports = {
       'config'            : path.join(__dirname, './src/js/redux/config'),
       'history_instance'  : path.join(__dirname, './src/js/redux/history'),
       'images'            : path.join(__dirname, './src/images'),
+      'actions'           : path.join(__dirname, './src/js/redux/actions'),
     }
   },
   /*module: {

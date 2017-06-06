@@ -2,11 +2,9 @@ import React from 'react';
 import { Input , Select, Button, Table, Icon, Layout, Breadcrumb, Row, Col, message} from 'antd';
 import MyMap from 'utils/product_group_scope';
 import Nav from '../common/pc_nav';
+import { getProductList, getInstanceLocationList } from 'actions/index';
 const { Content, Sider } = Layout;
 const Search = Input.Search
-import * as config from  'config/app.config.js';
-import { post } from 'utils/request';
-
 
 
 class TopHeader extends React.Component{
@@ -73,9 +71,6 @@ export default class QrcodeManage extends React.Component{
         <span>
           <a href="javascript:;" onClick={this.getProductLat.bind(this, record.id)}>查看分布</a>
           <span className="ant-divider" />
-          {/*<a href="#" className="ant-dropdown-link">
-            上架 <Icon type="down" />
-          </a>*/}
         </span>
       ),
     }];
@@ -87,7 +82,7 @@ export default class QrcodeManage extends React.Component{
             <Nav />
           </Sider>
           <Content style={{padding:'0 24px', minHeight: 280 }}>
-          <FilterHeader />
+          {/*<FilterHeader />*/}
           <Row>
             <Col span={10}>
               <div className="panel">
@@ -103,7 +98,6 @@ export default class QrcodeManage extends React.Component{
                     <div className="map-toolbar">
                       <Search placeholder="地点搜索" id="searchInput"  style={{maxWidth: 150, marginRight: 5}}/>
                       <a onClick={this.fullScreen.bind(this)} className={`full-screen-btn ${share ? 'hidden' : ''} space-right`} href="javascript:;"></a>
-                      {/*<SearchInput id="searchInput" type="text"  style={{width: 188}} />*/}
                     </div>
                     <div id="map_container" className="map-container"></div>
                   </div>
@@ -121,7 +115,7 @@ export default class QrcodeManage extends React.Component{
     MyMap.create(function(map){
       this.setState({ mapPrepared: true });
     }.bind(this));
-    post('http://119.23.132.97/api', 'get_product_list', {companyId: '1005'})
+    getProductList()
     .done((data) => {
        self.setState({list: data.filter( m => m.type == 5 )})
     })
@@ -132,15 +126,32 @@ export default class QrcodeManage extends React.Component{
   fullScreen(){
     this.setState({ fullScreen: !this.state.fullScreen });
   }
+  //将count点分散
+  parseData(data){
+    var arr = [];
+    if(data.count == 1) arr.push(data);
+    else{
+      var i = 0;
+      for(i=0;i<data.count;i++){
+        arr.push(data);
+      }
+    }
+    return arr;
+  }
   getProductLat(prodId){
     var self = this;
     var userId = sessionStorage.getItem('userid');
-    post('http://119.23.132.97/api', 'get_product_usage_stat_by_xy', {prodId: prodId.toString(), userId})
+    getInstanceLocationList({prodId: prodId.toString(), userId})
       .done( data => {
+        var arrS = [];
+        data.forEach( m => {
+          var resultData = self.parseData(m);
+          arrS = [...resultData, ...arrS];
+        })
         self._mapInitTimer = setInterval( () => {
           if(self.state.mapPrepared){
             MyMap.resetScope()
-            MyMap.list = data;
+            MyMap.list = arrS;
             MyMap.initialScope();
             clearInterval(self._mapInitTimer);
             self.state.callback && self.state.callback();
@@ -155,10 +166,6 @@ export default class QrcodeManage extends React.Component{
       this._mapInitTimer = setInterval( () => {
         if(this.state.mapPrepared){
           MyMap.reset();
-          //服务器传来的数据coords是字符串形式的，需要转换
-/*          MyMap.list = nextProps.list.map( n => {
-            return {...n, coords: MyMap.changeToPonits(n.coords)};
-          });*/
 
           MyMap.initialScope();
           clearInterval(this._mapInitTimer);

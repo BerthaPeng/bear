@@ -296,7 +296,7 @@ label{
     width: 32px;
     height: 32px;
     background-size: cover;
-    background: url(http://amappc.cn-hangzhou.oss-pub.aliyun-inc.com/lbs/static/img/marker.png) no-repeat;
+    background: url(/src/images/marker.png) no-repeat;
 }
 
 .ant-tag {

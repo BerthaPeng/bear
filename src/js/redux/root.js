@@ -85,7 +85,6 @@ const getComponents = (routePath, accessControl) => (nexState, replace, callback
       break;
     case 'test':
       require.ensure([], require => {
-        components.QrcodeManagePannel = require('./components/test/qrcode.js').default;
         components.BeltlineManangePannel = require('./components/test/beltline_form.js').default;
         components.BeltlineFormPannel = require('./components/test/beltline_form.js').default;
         callback();

@@ -115,37 +115,10 @@ export default class MobileProduct extends React.Component{
       </div>
       )
   }
-  componentDidMount(){
+/*  componentDidMount(){
     var { id } = this.props.params;
     var options = config.default.fetchOptions('POST', 'trace_product_source', {product_instance_id: id})
     var ajaxOptions = config.default.ajaxData( 'trace_product_source', {product_instance_id: id})
-/*    try{
-      $.ajax({
-        url: config.default.trace_product,
-        type: 'POST',
-        data: JSON.stringify(ajaxOptions),
-        contentType: "application/json",
-        dataType: "json"
-      }).done( json => {
-        alert(json);
-        var {data} = json;
-        this.setState({product_trace_list: data})
-      })
-    }catch(e){
-      alert(e);
-    }*/
-
-/*    try{
-      fetch(config.default.trace_product, options)
-      .then(res => res.json())
-      .then(json => {
-        var {data} = json;
-        this.setState({product_trace_list: data})
-      })
-      .catch(ex => {console.warn("parsed err: " + ex)})
-    }catch(e){
-      alert(e);
-    }*/
     fetch(config.default.trace_product, options)
     .then(res => res.json())
     .then(json => {
@@ -161,5 +134,5 @@ export default class MobileProduct extends React.Component{
         this.setState({info: json.data})
       })
       .catch(ex => {console.warn("parsed err: " + ex)})
-  }
+  }*/
 }

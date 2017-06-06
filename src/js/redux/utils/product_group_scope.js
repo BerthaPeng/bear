@@ -36,7 +36,8 @@ MyMap.prototype.initialScope = function(){
     var marker = new AMap.Marker({
         position: new AMap.LngLat(n.longitude, n.latitude),
         offset: {x: -8,y: -34},
-        content: '<div class="AMap_marker_box"><div class="count">'+n.count+'</div><div class="AMap_marker"></div></div>',
+        icon: '/src/images/marker.png',
+        /*content: '<div class="AMap_marker_box"><div class="count">'+n.count+'</div><div class="AMap_marker"></div></div>',*/
     });
     markers.push(marker);
   })
